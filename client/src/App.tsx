@@ -1,10 +1,15 @@
-import './App.css'
-import { Button } from './components/ui/button'
+import Navbar from './components/Navbar'
+
+import { Textarea } from './components/ui/textarea'
 
 function App() {
   return (
     <>
-      <Button>Hello</Button>
+      <Navbar />
+      <div className='flex gap-4'>
+        <Textarea className='w-1/2' />
+        <Textarea className='w-1/2' />
+      </div>
     </>
   )
 }
