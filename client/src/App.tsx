@@ -6,8 +6,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className='flex gap-4'>
-        <Textarea className='w-1/2' />
+      <div className='flex justify-center'>
         <Textarea className='w-1/2' />
       </div>
     </>
