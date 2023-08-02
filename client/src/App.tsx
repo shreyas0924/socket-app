@@ -31,6 +31,8 @@ function App() {
       <Navbar />
       <div className='flex justify-center'>
         <Textarea className='w-1/2' value={text} onChange={handleTextChange} />
+        <Textarea className='w-1/2' value={text} onChange={handleTextChange} />
+        
       </div>
     </>
   )
