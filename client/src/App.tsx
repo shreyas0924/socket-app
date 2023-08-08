@@ -37,14 +37,14 @@ function App() {
     <>
       <Navbar />
       <div className='ml-[15%] overflow-hidden '>
-        <Tabs defaultValue='autocomplete'>
-          <TabsList>
-            <TabsTrigger value='docs'>Docs</TabsTrigger>
-            <TabsTrigger value='canvas'>Canvas</TabsTrigger>
+        <Tabs defaultValue='autocomplete' >
+          <TabsList className='rounded-xl'>
+            <TabsTrigger value='docs' className='rounded-xl'>Docs</TabsTrigger>
+            <TabsTrigger value='canvas' className='rounded-xl'>Canvas</TabsTrigger>
           </TabsList>
           <TabsContent value='docs' className='w-screen'>
             <Textarea
-              className='w-2/3'
+              className='w-2/3 rounded-2xl'
               value={text}
               onChange={handleTextChange}
               aria-autocomplete='inline'

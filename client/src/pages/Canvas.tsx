@@ -49,12 +49,12 @@ const Canvas: FC<pageProps> = ({}) => {
   }, [canvasData, canvasRef])
 
   return (
-    <div className=' bg-white flex justify-center items-center border-gray-950 mr-[25%] mt-5'>
+    <div className=' bg-white flex justify-center items-center border-gray-950 mr-[25%] mt-5 p-5'>
       <div className='flex flex-col gap-10 p-10'>
         <ChromePicker color={color} onChange={(e) => setColor(e.hex)} />
         <button
           type='button'
-          className='p-2 rounded-md border border-black'
+          className='p-2 rounded-md border border-black text-black'
           onClick={clear}
         >
           Clear canvas
