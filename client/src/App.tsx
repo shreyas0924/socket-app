@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react'
 import io from 'socket.io-client'
 import Navbar from './components/Navbar'
 import { Textarea } from './components/ui/textarea'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs'
+import Canvas from './pages/Canvas'
 
 const socket = io('http://localhost:3000')
 
@@ -34,9 +36,24 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className='flex justify-center'>
-        <Textarea className='w-1/2' value={text} onChange={handleTextChange} />
-        {/* <Textarea className='w-1/2' value={text} onChange={handleTextChange} /> */}
+      <div className='ml-[15%] overflow-hidden '>
+        <Tabs defaultValue='autocomplete'>
+          <TabsList>
+            <TabsTrigger value='docs'>Docs</TabsTrigger>
+            <TabsTrigger value='canvas'>Canvas</TabsTrigger>
+          </TabsList>
+          <TabsContent value='docs' className='w-screen'>
+            <Textarea
+              className='w-2/3'
+              value={text}
+              onChange={handleTextChange}
+              aria-autocomplete='inline'
+            />
+          </TabsContent>
+          <TabsContent value='canvas'>
+            <Canvas />
+          </TabsContent>
+        </Tabs>
       </div>
     </>
   )
