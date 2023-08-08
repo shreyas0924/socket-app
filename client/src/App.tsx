@@ -37,10 +37,14 @@ function App() {
     <>
       <Navbar />
       <div className='ml-[15%] overflow-hidden '>
-        <Tabs defaultValue='autocomplete' >
+        <Tabs defaultValue='docs' activationMode='automatic'>
           <TabsList className='rounded-xl'>
-            <TabsTrigger value='docs' className='rounded-xl'>Docs</TabsTrigger>
-            <TabsTrigger value='canvas' className='rounded-xl'>Canvas</TabsTrigger>
+            <TabsTrigger value='docs' className='rounded-xl'>
+              Docs
+            </TabsTrigger>
+            <TabsTrigger value='canvas' className='rounded-xl'>
+              Canvas
+            </TabsTrigger>
           </TabsList>
           <TabsContent value='docs' className='w-screen'>
             <Textarea

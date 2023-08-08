@@ -56,6 +56,7 @@ const Canvas: FC<pageProps> = ({}) => {
           type='button'
           className='p-2 rounded-md border border-black text-black'
           onClick={clear}
+          
         >
           Clear canvas
         </button>

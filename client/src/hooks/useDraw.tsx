@@ -10,7 +10,7 @@ export type Point = { x: number; y: number }
 
 const useDraw = (onDraw: ({ ctx, currentPoint, prevPoint }: Draw) => void) => {
   const [mouseDown, setMouseDown] = useState(false)
-
+  const [isClear, setIsClear] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const prevPoint = useRef<null | Point>(null)
 
@@ -24,6 +24,7 @@ const useDraw = (onDraw: ({ ctx, currentPoint, prevPoint }: Draw) => void) => {
     if (!ctx) return
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
+    setIsClear(!isClear)
   }
 
   useEffect(() => {
