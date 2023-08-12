@@ -15,16 +15,21 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   console.log(`User Connected: ${socket.id}`)
 
-//   socket.on('join-room', (data) => {
-//     socket.join(data)
-//   })
+  //   socket.on('join-room', (data) => {
+  //     socket.join(data)
+  //   })
 
-//   socket.on('send-message', (data) => {
-//     socket.to(data.room).emit('receive-message', data)
-//   })
+  //   socket.on('send-message', (data) => {
+  //     socket.to(data.room).emit('receive-message', data)
+  //   })
   socket.on('send-doc', (data) => {
     socket.broadcast.emit('receive-doc', data)
     // socket.to(data.room).emit('receive-doc', data)
+  })
+
+  socket.on('canvasData', (data) => {
+    socket.broadcast.emit('receive-canvas', { text: data })
+    console.log(`Received canvas data: ${data}`)
   })
 })
 

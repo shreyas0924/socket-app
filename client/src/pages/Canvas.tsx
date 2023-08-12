@@ -1,17 +1,16 @@
 /* eslint-disable no-empty-pattern */
-import { FC, useEffect, useState } from 'react'
-import useDraw, { Draw } from '../hooks/useDraw'
+import { FC, useRef, useState } from 'react'
+import { useDraw, Draw } from '../hooks/useDraw'
 import { ChromePicker } from 'react-color'
-import useLocalStorage from '../hooks/useLocalStorage'
+import { io } from 'socket.io-client'
 
 interface pageProps {}
 
 const Canvas: FC<pageProps> = ({}) => {
   const [color, setColor] = useState<string>('#000')
-  const [canvasData, setCanvasData] = useLocalStorage('canvas', '')
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+  
   const { canvasRef, onMouseDown, clear } = useDraw(drawLine)
+  const socketRef = useRef(io('http://localhost:3000'))
 
   function drawLine({ prevPoint, currentPoint, ctx }: Draw) {
     const { x: currX, y: currY } = currentPoint
@@ -31,22 +30,27 @@ const Canvas: FC<pageProps> = ({}) => {
     ctx.arc(startPoint.x, startPoint.y, 2, 0, 2 * Math.PI)
     ctx.fill()
 
-    // Save canvas data to local storage
-    setCanvasData(canvasRef.current?.toDataURL() ?? '')
+    // Send canvas data over socket
+    if (canvasRef.current) {
+      sendCanvasData(canvasRef.current)
+    }
   }
 
-  useEffect(() => {
-    if (canvasData) {
-      const img = new Image()
-      img.onload = () => {
-        const canvas = canvasRef.current
-        const context = canvas?.getContext('2d')
-        context?.drawImage(img, 0, 0)
-      }
-      img.src = canvasData
-      img.crossOrigin = 'anonymous'
+  function sendCanvasData(canvas: HTMLCanvasElement) {
+    const image = new Image()
+
+    image.onload = () => {
+      const canvasDataUrl = getCanvasDataUrl(canvas)
+      socketRef.current.emit('canvasData', canvasDataUrl)
+      console.log('Sent canvas data:', canvasDataUrl)
     }
-  }, [canvasData, canvasRef])
+
+    image.src = getCanvasDataUrl(canvas)
+  }
+
+  function getCanvasDataUrl(canvas: HTMLCanvasElement) {
+    return canvas.toDataURL() // Converts the canvas image to a base64 string
+  }
 
   return (
     <div className=' bg-white flex justify-center items-center border-gray-950 mr-[25%] mt-5 p-5'>
@@ -56,7 +60,6 @@ const Canvas: FC<pageProps> = ({}) => {
           type='button'
           className='p-2 rounded-md border border-black text-black'
           onClick={clear}
-          
         >
           Clear canvas
         </button>

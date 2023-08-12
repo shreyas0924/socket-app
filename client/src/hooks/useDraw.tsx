@@ -1,16 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from 'react'
-// import { Draw, Point } from '../types/typing'
 
 export type Draw = {
   ctx: CanvasRenderingContext2D
   currentPoint: Point
   prevPoint: Point | null
 }
-export type Point = { x: number; y: number }
 
-const useDraw = (onDraw: ({ ctx, currentPoint, prevPoint }: Draw) => void) => {
+export type Point = { x: number; y: number }
+export const useDraw = (
+  onDraw: ({ ctx, currentPoint, prevPoint }: Draw) => void
+) => {
   const [mouseDown, setMouseDown] = useState(false)
-  const [isClear, setIsClear] = useState(false)
+
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const prevPoint = useRef<null | Point>(null)
 
@@ -24,7 +26,6 @@ const useDraw = (onDraw: ({ ctx, currentPoint, prevPoint }: Draw) => void) => {
     if (!ctx) return
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    setIsClear(!isClear)
   }
 
   useEffect(() => {
@@ -55,20 +56,14 @@ const useDraw = (onDraw: ({ ctx, currentPoint, prevPoint }: Draw) => void) => {
       prevPoint.current = null
     }
 
-    // Add event listeners
     canvasRef.current?.addEventListener('mousemove', handler)
     window.addEventListener('mouseup', mouseUpHandler)
 
-    // Remove event listeners
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       canvasRef.current?.removeEventListener('mousemove', handler)
       window.removeEventListener('mouseup', mouseUpHandler)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onDraw])
 
   return { canvasRef, onMouseDown, clear }
 }
-
-export default useDraw

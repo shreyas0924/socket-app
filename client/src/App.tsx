@@ -12,7 +12,7 @@ function App() {
   const [text, setText] = useState<string>('')
 
   useEffect(() => {
-    console.log('Sending doc:', text)
+    console.log('Sending doc:', text) 
     socket.emit('send-doc', { text })
 
     socket.on('receive-doc', (e) => {
