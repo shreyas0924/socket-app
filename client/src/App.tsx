@@ -6,7 +6,7 @@ import { Textarea } from './components/ui/textarea'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs'
 import Canvas from './pages/Canvas'
 
-const socket = io('http://localhost:3000')
+const socket = io('https://socket-backend-f7w4.onrender.com/')
 
 function App() {
   const [text, setText] = useState<string>('')

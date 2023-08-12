@@ -8,9 +8,9 @@ interface pageProps {}
 
 const Canvas: FC<pageProps> = ({}) => {
   const [color, setColor] = useState<string>('#000')
-  
+
   const { canvasRef, onMouseDown, clear } = useDraw(drawLine)
-  const socketRef = useRef(io('http://localhost:3000'))
+  const socketRef = useRef(io('https://socket-backend-f7w4.onrender.com/'))
 
   function drawLine({ prevPoint, currentPoint, ctx }: Draw) {
     const { x: currX, y: currY } = currentPoint
