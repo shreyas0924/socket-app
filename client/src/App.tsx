@@ -29,8 +29,8 @@ function App() {
     }
   }, [])
 
-  const handleTextChange = (newText: string, event: KeyboardEvent) => {
-    event.preventDefault()
+  const handleTextChange = (newText: string, ) => {
+    // event.preventDefault()
     setText(newText)
     socket.emit('send-doc', { text: newText })
   }

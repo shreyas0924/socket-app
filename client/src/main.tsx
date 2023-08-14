@@ -8,11 +8,11 @@ import CreateRoom from './pages/CreateRoom.tsx'
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/room',
     element: <CreateRoom />,
   },
   {
-    path: '/home',
+    path: '/',
     element: <App />,
   },
 ])

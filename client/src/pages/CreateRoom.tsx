@@ -7,7 +7,7 @@ const CreateRoom = () => {
   return (
     <div>
       Create room here
-      <Link to={`/home`} >Go to Home</Link>
+      <Link to={`/`} >Go to Home</Link>
     </div>
   )
 }
