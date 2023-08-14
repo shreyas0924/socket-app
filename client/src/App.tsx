@@ -29,11 +29,44 @@ function App() {
     }
   }, [])
 
-  const handleTextChange = (newText: string, ) => {
+  const handleTextChange = (newText: string) => {
     // event.preventDefault()
     setText(newText)
     socket.emit('send-doc', { text: newText })
   }
+
+  const modules = {
+    toolbar: [
+      [{ size: ['small', false, 'large', 'huge'] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['link', 'image'],
+      [
+        { list: 'ordered' },
+        { list: 'bullet' },
+        { indent: '-1' },
+        { indent: '+1' },
+        { align: [] },
+      ],
+    ],
+  }
+
+  const formats = [
+    'header',
+    'height',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'list',
+    'bullet',
+    'indent',
+    'link',
+    'image',
+    'align',
+    'size',
+  ]
 
   return (
     <>
@@ -64,6 +97,8 @@ function App() {
               onChange={handleTextChange}
               placeholder='Start writing here.....'
               style={{ height: '500px' }}
+              modules={modules}
+              formats={formats}
             />
           </TabsContent>
           <TabsContent value='canvas'>
