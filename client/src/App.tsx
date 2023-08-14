@@ -29,14 +29,10 @@ function App() {
     }
   }, [])
 
-  const handleTextChange = (newText: string) => {
+  const handleTextChange = (newText: string, event: KeyboardEvent) => {
+    event.preventDefault()
     setText(newText)
     socket.emit('send-doc', { text: newText })
-  }
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key === 'Enter') {
-      event.preventDefault()
-    }
   }
 
   return (
@@ -52,7 +48,10 @@ function App() {
               Canvas
             </TabsTrigger>
           </TabsList>
-          <TabsContent value='docs' className='w-screen'>
+          <TabsContent
+            value='docs'
+            className='w-screen h-screen dark:text-white'
+          >
             {/* <Textarea
               className='w-2/3 rounded-2xl'
               value={text}
@@ -60,12 +59,11 @@ function App() {
               aria-autocomplete='inline'
             /> */}
             <ReactQuill
-              className='w-2/3  dark:text-gray-300  border-2 border-gray-600 '
+              className='w-2/3  dark:text-gray-300  '
               value={text}
               onChange={handleTextChange}
               placeholder='Start writing here.....'
-              style={{ height: '320px' }}
-              onKeyPress={handleKeyPress}
+              style={{ height: '500px' }}
             />
           </TabsContent>
           <TabsContent value='canvas'>
