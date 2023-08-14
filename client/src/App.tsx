@@ -1,18 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import io from 'socket.io-client'
 import Navbar from './components/Navbar'
-import { Textarea } from './components/ui/textarea'
+// import { Textarea } from './components/ui/textarea'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs'
 import Canvas from './pages/Canvas'
-
-const socket = io('https://socket-backend-f7w4.onrender.com/')
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
+const socket = io('http://localhost:3000/')
+// const socket = io('https://socket-backend-f7w4.onrender.com/')
 
 function App() {
   const [text, setText] = useState<string>('')
 
   useEffect(() => {
-    console.log('Sending doc:', text) 
+    console.log('Sending doc:', text)
     socket.emit('send-doc', { text })
 
     socket.on('receive-doc', (e) => {
@@ -26,10 +28,8 @@ function App() {
     }
   }, [])
 
-  const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newText = event.target.value
+  const handleTextChange = (newText: string) => {
     setText(newText)
-
     socket.emit('send-doc', { text: newText })
   }
 
@@ -47,11 +47,16 @@ function App() {
             </TabsTrigger>
           </TabsList>
           <TabsContent value='docs' className='w-screen'>
-            <Textarea
+            {/* <Textarea
               className='w-2/3 rounded-2xl'
               value={text}
               onChange={handleTextChange}
               aria-autocomplete='inline'
+            /> */}
+            <ReactQuill
+              className='w-2/3 py-6'
+              value={text}
+              onChange={handleTextChange}
             />
           </TabsContent>
           <TabsContent value='canvas'>

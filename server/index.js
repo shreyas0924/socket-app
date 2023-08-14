@@ -27,8 +27,12 @@ io.on('connection', (socket) => {
     // socket.to(data.room).emit('receive-doc', data)
   })
 
-  socket.on('canvasData', (data) => {
-    socket.broadcast.emit('receive-canvas', { text: data })
+  socket.on('send-canvas', (data) => {
+    socket.broadcast.emit('receive-canvas', {
+      x: data.x,
+      y: data.y,
+      type: data.type,
+    })
     console.log(`Received canvas data: ${data}`)
   })
 })

@@ -1,5 +1,5 @@
 /* eslint-disable no-empty-pattern */
-import { FC, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { useDraw, Draw } from '../hooks/useDraw'
 import { ChromePicker } from 'react-color'
 import { io } from 'socket.io-client'
@@ -10,7 +10,8 @@ const Canvas: FC<pageProps> = ({}) => {
   const [color, setColor] = useState<string>('#000')
 
   const { canvasRef, onMouseDown, clear } = useDraw(drawLine)
-  const socketRef = useRef(io('https://socket-backend-f7w4.onrender.com/'))
+  const socketRef = useRef(io('http://localhost:3000'))
+  // const socketRef = useRef(io('https://socket-backend-f7w4.onrender.com/'))
 
   function drawLine({ prevPoint, currentPoint, ctx }: Draw) {
     const { x: currX, y: currY } = currentPoint
@@ -41,7 +42,7 @@ const Canvas: FC<pageProps> = ({}) => {
 
     image.onload = () => {
       const canvasDataUrl = getCanvasDataUrl(canvas)
-      socketRef.current.emit('canvasData', canvasDataUrl)
+      socketRef.current.emit('send-canvas', canvasDataUrl)
       console.log('Sent canvas data:', canvasDataUrl)
     }
 
@@ -51,6 +52,12 @@ const Canvas: FC<pageProps> = ({}) => {
   function getCanvasDataUrl(canvas: HTMLCanvasElement) {
     return canvas.toDataURL() // Converts the canvas image to a base64 string
   }
+
+  useEffect(() => {
+    socketRef.current.on('receive-canvas', () => {
+      
+    })
+  }, [])
 
   return (
     <div className=' bg-white flex justify-center items-center border-gray-950 mr-[25%] mt-5 p-5'>
