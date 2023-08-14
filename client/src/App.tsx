@@ -50,7 +50,7 @@ function App() {
           </TabsList>
           <TabsContent
             value='docs'
-            className='w-screen h-screen dark:text-white'
+            className='w-screen h-[600px] dark:text-white'
           >
             {/* <Textarea
               className='w-2/3 rounded-2xl'
@@ -59,7 +59,7 @@ function App() {
               aria-autocomplete='inline'
             /> */}
             <ReactQuill
-              className='w-2/3  dark:text-gray-300  '
+              className='w-2/3 dark:text-gray-300  '
               value={text}
               onChange={handleTextChange}
               placeholder='Start writing here.....'

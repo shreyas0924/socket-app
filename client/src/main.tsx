@@ -3,11 +3,24 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import { ThemeProvider } from './components/theme/theme-provider.tsx'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import CreateRoom from './pages/CreateRoom.tsx'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <CreateRoom />,
+  },
+  {
+    path: '/home',
+    element: <App />,
+  },
+])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-      <App />
+      <RouterProvider router={router} />
     </ThemeProvider>
   </React.StrictMode>
 )
