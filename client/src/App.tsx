@@ -8,6 +8,7 @@ import Canvas from './pages/Canvas'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 const socket = io('http://localhost:3000/')
+
 // const socket = io('https://socket-backend-f7w4.onrender.com/')
 
 function App() {
@@ -32,6 +33,11 @@ function App() {
     setText(newText)
     socket.emit('send-doc', { text: newText })
   }
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+    }
+  }
 
   return (
     <>
@@ -54,9 +60,12 @@ function App() {
               aria-autocomplete='inline'
             /> */}
             <ReactQuill
-              className='w-2/3 py-6'
+              className='w-2/3  dark:text-gray-300  border-2 border-gray-600 '
               value={text}
               onChange={handleTextChange}
+              placeholder='Start writing here.....'
+              style={{ height: '320px' }}
+              onKeyPress={handleKeyPress}
             />
           </TabsContent>
           <TabsContent value='canvas'>
